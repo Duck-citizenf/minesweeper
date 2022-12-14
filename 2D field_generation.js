@@ -30,31 +30,50 @@ const _div = "<div id=\"cell\" class=\"unit untaken\">";
 const div_ = "</div>";
 let x = 0;
 let y = 0;
+let number = 0;
 DigField.forEach((array) => array.forEach((element) =>
-        {
-            let x1 = x+1;
-            let x0 = x-1;
-            let y1 = y+1;
-            let y0 = y-1;
-            
+    {
+        let FS = DigField[y+1];
+        let FN = DigField[y-1];                 // FN FN FN 
+        let W  = DigField[y][x-1];              // ________
+        let E  = DigField[y][x+1];              //|NW|N |NE|
+                                                //|__|__|__|
+                                                //|E |  |W |
+                                                //|__|__|__|
+                                                //|SW|S |SE|
+                                                //|__|__|__|
+                                                // FS FS FS         
+    
+        if(element == 1) {field.innerHTML += "<div id=\"cell\" class=\"bomb untaken\"></div>"}
+        else {
+            if (FN != undefined){
+                let NW = DigField[y-1][x-1];
+                let N  = DigField[y-1][x];  
+                let NE = DigField[y-1][x+1];
+                if (NE != undefined){number += NE};
+                if (N  != undefined){number += N };
+                if (NW != undefined){number += NW};
+            };
+            if (FS != undefined){
+                let SW = DigField[y+1][x-1];
+                let S  = DigField[y+1][x];  
+                let SE = DigField[y+1][x+1];
+                if (SE != undefined){number += SE};
+                if (S  != undefined){number += S };
+                if (SW != undefined){number += SW};
+            };
+            if (E  != undefined){number += E };
+            if (W  != undefined){number += W };
 
-            if (DigField[x1] == undefined) {
-                DigField[x1][y1] = DigField[x1][y1] == undefined ?? 0;
-                DigField[x1][y]  = DigField[x1][y] == undefined ?? 0;
-                DigField[x1][y0] = DigField[x1][y0] == undefined ?? 0;
+            if(number > 0) {
+                field.innerHTML+=_div+number+div_
+            } 
+            else {
+                field.innerHTML+=zero_cell
             }
-            if (DigField[x0] == undefined) {
-                DigField[x0][y1] = 0;
-                DigField[x0][y]  = 0; 
-                DigField[x0][y0] = 0;
-            }
-            array[y1]  = DigField[x][y1]  == undefined ?? 0 ;
-            array[y0]  = DigField[x][y0]  == undefined ?? 0 ;
-
-            field.innerHTML = element == 1 ? field.innerHTML + "<div id=\"cell\" class=\"bomb untaken\"></div>"
-                : ((number = DigField[x1][y1] + DigField[x1][y] + DigField[x1][y0] + DigField[x][y1] + DigField[x][y0] + DigField[x0][y1] + DigField[x0][y0]), (number > 0 ? field.innerHTML+_div+number+div_ : field.innerHTML+zero_cell));
-            x = y == 30 ?? x+1;
-            y = y == 30 ? 0 : y+1;
-            number = 0;
-        }
+        };
+        number = 0;
+        x = x == 29 ? 0 : x+1;
+        y = x == 0 ? y+1 : y;
+    }
 ));
