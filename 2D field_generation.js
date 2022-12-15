@@ -32,15 +32,14 @@
     let number = 0;
     DigField.forEach((array) => array.forEach((element) =>
         {
-            let FS = DigField[y+1]; 
-            let FN = DigField[y-1];         // ________
-            let W  = DigField[y][x-1];      //|NW|N |NE|
-            let E  = DigField[y][x+1];      //|__|__|__|
-                                            //|E |  |W |
+            let FS = DigField[y+1];         // ________
+            let FN = DigField[y-1];         //|NW|N |NE|
+            let W  = DigField[y][x-1];      //|__|__|__|
+            let E  = DigField[y][x+1];      //|E |  |W |
                                             //|__|__|__|
                                             //|SW|S |SE|
-                                            //|__|__|__|                                                                                                                                                                                                                                                    
-
+                                            //|__|__|__|
+            
             if(element == 1) {field.innerHTML += "<div id=\"cell\" class=\"bomb untaken\"></div>"}
             else {
                 if (FN != undefined){
