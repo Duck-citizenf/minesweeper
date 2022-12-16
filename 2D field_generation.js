@@ -2,7 +2,7 @@
     // 1D array creation
     let i = 0;
     let z = [];
-    while (i !== 99) {
+    while (i !== 10) {
         z.push(1);
         i++;
     }

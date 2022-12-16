@@ -59,23 +59,28 @@
                 }
                 //Chaining that clears all cells with no number
                 else if(i.innerHTML == ''){
-                    if (FN != undefined){
-                        //testing if north-west or north-east exist
-                        if(NW != undefined){NW.classList.remove('untaken')}
-                        if(NE != undefined){NE.classList.remove('untaken')}
-                        N .classList.remove('untaken')
-                    };
-                    //Testing if south exist
-                    if (FS != undefined){
-                        //testing if south-west or south-east exist
-                        if(SW != undefined){SW.classList.remove('untaken')}
-                        if(SE != undefined){SE.classList.remove('untaken')}
-                        S .classList.remove('untaken')
-                    };
-                    //testing if west or east exist
-                    if(W  != undefined){W .classList.remove('untaken')}
-                    if(E  != undefined){E .classList.remove('untaken')}
-                    i.classList.remove('untaken'); 
+                    i.classList.remove('untaken');
+
+                    function ChainSouth(y,x){
+                        if(DigAllCells[y][x].innerHTML == ''){
+                            if (DigAllCells[y+1] != undefined){
+                                if(DigAllCells[y+1][x+1] != undefined){DigAllCells[y+1][x+1].classList.remove('untaken')}
+                                if(DigAllCells[y+1][x-1] != undefined){DigAllCells[y+1][x-1].classList.remove('untaken')}
+                                DigAllCells[y+1][x].classList.remove('untaken');
+                                ChainSouth(y+1,x+1);
+                                ChainSouth(y+1,x)  ;
+                                ChainSouth(y+1,x-1);
+                            }
+                            if (DigAllCells[y-1] != undefined){
+                                if(DigAllCells[y-1][x+1] != undefined){DigAllCells[y-1][x+1].classList.remove('untaken')}
+                                if(DigAllCells[y-1][x-1] != undefined){DigAllCells[y-1][x-1].classList.remove('untaken')}
+                                DigAllCells[y-1][x].classList.remove('untaken');
+                            }
+                            if(DigAllCells[y][x+1] != undefined){DigAllCells[y][x+1].classList.remove('untaken')}
+                            if(DigAllCells[y][x-1] != undefined){DigAllCells[y][x-1].classList.remove('untaken')} 
+                        }
+                    }
+                    ChainSouth(y,x);
                 }
                 //clicking cell that was opened
                 else if(i.classList.contains('untaken') == false){
