@@ -2,7 +2,7 @@
     // 1D array creation
     let i = 0;
     let z = [];
-    while (i !== 10) {
+    while (i !== 99) {
         z.push(1);
         i++;
     }
@@ -35,7 +35,7 @@
             let FS = DigField[y+1];         // ________
             let FN = DigField[y-1];         //|NW|N |NE|
             let W  = DigField[y][x-1];      //|__|__|__|
-            let E  = DigField[y][x+1];      //|E |  |W |
+            let E  = DigField[y][x+1];      //|W |  |E |
                                             //|__|__|__|
                                             //|SW|S |SE|
                                             //|__|__|__|
