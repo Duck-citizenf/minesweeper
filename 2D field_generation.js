@@ -1,23 +1,11 @@
 (function() {
     // 1D array creation
-    let i = 0;
     let z = [];
     window.bomb_count = 99;
-    while (i !== window.bomb_count) {
-        z.push(1);
-        i++;
+    for(let i=0; i < 480; i++){
+        z.push(i > 99 ? 0 : 1)
     }
-    while (i !== 480){
-        z.push(0);
-        i++;
-    }
-    function shuffleArr (array){
-        for (var i = array.length - 1; i > 0; i--) {
-            var rand = Math.floor(Math.random() * (i + 1));
-            [array[i], array[rand]] = [array[rand], array[i]]
-        }
-    }
-    shuffleArr(z);
+    z.sort(()=>Math.random() > 0.5 ? 1 : -1);
 
     // 2D array creation
     const DigField = [];
