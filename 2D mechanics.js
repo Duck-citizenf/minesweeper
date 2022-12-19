@@ -5,6 +5,10 @@
     //Converting Array to 
     const DigAllCells = [];
     while(allcells2.length) DigAllCells.push(allcells2.splice(0,30));
+    //Setting bomb counter
+    let bomb_counter = document.querySelector('.bomb_count');
+    bomb_counter.innerHTML = window.bomb_count;
+    let true_counter = window.bomb_count;
 
     DigAllCells.forEach((m) => m.forEach((i) =>{
             //blocking left click in browser
@@ -161,6 +165,7 @@
                 if (i.classList.contains('flag') == true){
                     i.classList.remove('flag');
                     i.classList.add('untaken');
+                    bomb_counter.innerHTML = bomb_counter.innerHTML -1+2;
                 }
                 //Disabling option to put flag on opened cell
                 else if (i.classList.contains('untaken') == false){
@@ -169,7 +174,15 @@
                 //How flag is placed
                 else {
                     i.classList.remove('untaken');
-                    i.classList.add('flag'); 
+                    i.classList.add('flag');
+                    bomb_counter.innerHTML = bomb_counter.innerHTML -1;
+                    if(i.classList.contains('bomb') == true){
+                        true_counter = true_counter -1;
+                    }
+                }
+                if(true_counter == 0){
+                    document.getElementById('victory').classList.remove('not');
+                    field.classList.add('gameover')
                 }
             });
         }

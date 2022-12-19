@@ -31,7 +31,27 @@
     pointer-events: none;
 }
 .menu{
-    width:62px; 
+    width: 510px;
     margin: 0px auto;
     padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.bomb_count, .timer{
+    font-size: 20px;
+    font-family: Orbitron;
+}
+#victory{
+    position: absolute;
+    right: 44%;
+    top: 25%;
+    z-index: 5;
+    border: 3px solid;
+    background-color: white;
+    padding: 75px;
+    width: 70px;
+    text-align: center;
+}
+.not{
+    display: none;
 }

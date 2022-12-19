@@ -1,5 +1,13 @@
 <link rel="stylesheet" type="text/css" href="css.css"/>
-<div class="menu"><button onClick="window.location.reload()">Refresh</button></div>
+<div class="menu">
+    <span class="bomb_count"></span>
+    <button onClick="window.location.reload()">Refresh</button>
+    <span class="timer">10:00</span>
+</div>
 <div id="field"></div>
+<div id="victory" class="not">
+    <span>You won!</span>
+    <button onClick="window.location.reload()">Try Again</button>
+</div>
 <script src="2D field_generation.js"></script>
 <script src="2D mechanics.js"></script>

@@ -2,7 +2,8 @@
     // 1D array creation
     let i = 0;
     let z = [];
-    while (i !== 99) {
+    window.bomb_count = 99;
+    while (i !== window.bomb_count) {
         z.push(1);
         i++;
     }
