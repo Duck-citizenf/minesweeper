@@ -1,4 +1,5 @@
 (function() {
+    const allbombs = document.querySelectorAll(".bomb");
     const allcells = document.querySelectorAll("#cell");
     //Converting NodeList of Listeners to Array
     const allcells2 = Array.from(allcells);
@@ -28,41 +29,50 @@
                 let E  = DigAllCells[y][x+1];
                 //Chaining that clears all cells with no number
                 function Chain(y,x){
-                    while(DigAllCells[y][x].innerHTML == '' && DigAllCells[y][x].classList.contains('untaken') && DigAllCells[y][x].classList.contains('bomb') == false){
+                    while(DigAllCells[y][x].classList.contains('untaken') && DigAllCells[y][x].classList.contains('bomb') == false){
                         DigAllCells[y][x].classList.remove('untaken');
+                        if(DigAllCells[y][x].innerHTML == ''){
+                            if (DigAllCells[y+1] != undefined){
+                                if(DigAllCells[y+1][x+1] != undefined){Chain(y+1,x+1);}
+                                if(DigAllCells[y+1][x-1] != undefined){Chain(y+1,x-1);}
+                                Chain(y+1,x);
+                            }
+                            if (DigAllCells[y-1] != undefined){
+                                if(DigAllCells[y-1][x+1] != undefined){Chain(y-1,x+1);}
+                                if(DigAllCells[y-1][x-1] != undefined){Chain(y-1,x-1);}
+                                Chain(y-1,x);
+                            }
+                            if(DigAllCells[y][x+1] != undefined){Chain(y,x+1);}
+                            if(DigAllCells[y][x-1] != undefined){Chain(y,x-1);} 
+                        }
+                        else{
+                            suspect.push(DigAllCells[y][x])
+                        }
+                    }
+                    suspect.forEach((sus)=>{
+                        let easy_flags = [];
+                        let y_easy = 0;
                         if (DigAllCells[y+1] != undefined){
-                            if(DigAllCells[y+1][x+1] != undefined){
-                                Chain(y+1,x+1);
-                                DigAllCells[y+1][x+1].classList.remove('untaken');
-                            }
-                            if(DigAllCells[y+1][x-1] != undefined){
-                                Chain(y+1,x-1);
-                                DigAllCells[y+1][x-1].classList.remove('untaken');
-                            }
-                            Chain(y+1,x);
-                            DigAllCells[y+1][x].classList.remove('untaken');
+                            if(DigAllCells[y+1][x+1].classList.contains('untaken')){easy_flags.push(DigAllCells[y+1][x+1]); y_easy++}
+                            if(DigAllCells[y+1][x-1].classList.contains('untaken')){easy_flags.push(DigAllCells[y+1][x-1]); y_easy++}
+                            if(DigAllCells[y+1][x].classList.contains('untaken')){easy_flags.push(DigAllCells[y+1][x]); y_easy++}
                         }
                         if (DigAllCells[y-1] != undefined){
-                            if(DigAllCells[y-1][x+1] != undefined){
-                                Chain(y-1,x+1);
-                                DigAllCells[y-1][x+1].classList.remove('untaken');
-                            }
-                            if(DigAllCells[y-1][x-1] != undefined){
-                                Chain(y-1,x-1);
-                                DigAllCells[y-1][x-1].classList.remove('untaken');
-                            }
-                            Chain(y-1,x);
-                            DigAllCells[y-1][x].classList.remove('untaken');
+                            if(DigAllCells[y-1][x+1].classList.contains('untaken')){easy_flags.push(DigAllCells[y-1][x+1]); y_easy++}
+                            if(DigAllCells[y-1][x-1].classList.contains('untaken')){easy_flags.push(DigAllCells[y-1][x-1]); y_easy++}
+                            if(DigAllCells[y-1][x].classList.contains('untaken')){easy_flags.push(DigAllCells[y-1][x]); y_easy++}
                         }
-                        if(DigAllCells[y][x+1] != undefined){
-                            Chain(y,x+1);
-                            DigAllCells[y][x+1].classList.remove('untaken');
+                        if(DigAllCells[y][x+1].classList.contains('untaken')){easy_flags.push(DigAllCells[y][x+1]); y_easy++}
+                        if(DigAllCells[y][x-1].classList.contains('untaken')){easy_flags.push(DigAllCells[y][x-1]); y_easy++} 
+                        let st_y_easy = y_easy.toString();
+                        if(DigAllCells[y][x].innerHTML == st_y_easy){
+                            easy_flags.forEach((easy_flag)=>{
+                                easy_flag.classList.add('flag');
+                                easy_flag.classList.remove('untaken');
+                            });
                         }
-                        if(DigAllCells[y][x-1] != undefined){
-                            Chain(y,x-1);
-                            DigAllCells[y][x-1].classList.remove('untaken');
-                        } 
-                    }
+                    });
+                    let suspect = [];
                 }
                 
                 //Testing if north exist
@@ -99,6 +109,15 @@
                 else if(i.classList.contains('bomb') == true){
                     i.classList.remove('untaken'); 
                     field.classList.add('gameover');
+                    for (let bomb = 0; bomb < allbombs.length; bomb++) {
+                        allbombs[bomb].classList.remove('untaken');
+                    }
+                    let allflags = document.querySelectorAll('.flag');
+                    for (let w_flag = 0; w_flag < allflags.length; w_flag++) {
+                        if(allflags[w_flag].classList.contains('flag') == true && allflags[w_flag].classList.contains('bomb') == false){
+                            allflags[w_flag].classList.add('orange');
+                        }
+                    }
                 }
                 //clicking cell that was opened
                 else if(i.classList.contains('untaken') == false){
@@ -151,7 +170,18 @@
                         }
 
                         //Ending game if cell had bomb and no flag
-                        mistake>0 ? field.classList.add('gameover') : null;
+                        if(mistake>0) {
+                            field.classList.add('gameover')
+                            for (let bomb = 0; bomb < allbombs.length; bomb++) {
+                                allbombs[bomb].classList.remove('untaken');
+                            }
+                            let allflags = document.querySelectorAll('.flag');
+                            for (let w_flag = 0; w_flag < allflags.length; w_flag++) {
+                                if(allflags[w_flag].classList.contains('flag') == true && allflags[w_flag].classList.contains('bomb') == false){
+                                    allflags[w_flag].classList.add('orange');
+                                }
+                            }
+                        }
                     }
                 }
                 //Removing class that hides cell
@@ -166,6 +196,9 @@
                     i.classList.remove('flag');
                     i.classList.add('untaken');
                     bomb_counter.innerHTML = bomb_counter.innerHTML -1+2;
+                    if(i.classList.contains('bomb') == true){
+                        true_counter = true_counter -1+2;
+                    }
                 }
                 //Disabling option to put flag on opened cell
                 else if (i.classList.contains('untaken') == false){

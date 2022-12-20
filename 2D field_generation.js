@@ -3,9 +3,15 @@
     let z = [];
     window.bomb_count = 99;
     for(let i=0; i < 480; i++){
-        z.push(i > 99 ? 0 : 1)
+        z.push(i >= window.bomb_count ? 0 : 1)
     }
-    z.sort(()=>Math.random() > 0.5 ? 1 : -1);
+    function shuffleArr (array){
+        for (var i = array.length - 1; i > 0; i--) {
+            var rand = Math.floor(Math.random() * (i + 1));
+            [array[i], array[rand]] = [array[rand], array[i]]
+        }
+    }
+    shuffleArr(z);
 
     // 2D array creation
     const DigField = [];

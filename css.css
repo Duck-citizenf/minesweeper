@@ -30,6 +30,9 @@
 .gameover{
     pointer-events: none;
 }
+.orange{
+    background-color: orange;
+}
 .menu{
     width: 510px;
     margin: 0px auto;
