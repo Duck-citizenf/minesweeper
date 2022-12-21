@@ -18,6 +18,8 @@
             };
             i.addEventListener("click", function() {  
                 let flag = 0; 
+                window.suspect = [];
+                window.suspects = [];
                 //Taking coordinates of Listener
                 let y = DigAllCells.indexOf(m);
                 let x = m.indexOf(i);
@@ -46,33 +48,55 @@
                             if(DigAllCells[y][x-1] != undefined){Chain(y,x-1);} 
                         }
                         else{
-                            suspect.push(DigAllCells[y][x])
+                            suspect.push(DigAllCells[y][x]); //0
+                            if (DigAllCells[y+1] != undefined){
+                                if(DigAllCells[y+1][x+1] != undefined){suspect.push(DigAllCells[y+1][x+1]);}else{suspect.push(0);} //1
+                                if(DigAllCells[y+1][x-1] != undefined){suspect.push(DigAllCells[y+1][x-1]);}else{suspect.push(0);} //2
+                                suspect.push(DigAllCells[y+1][x]); //3
+                            }
+                            else{suspect.push(0, 0, 0);}
+                            if (DigAllCells[y-1] != undefined){
+                                if(DigAllCells[y-1][x+1] != undefined){suspect.push(DigAllCells[y-1][x+1]);}else{suspect.push(0);} //4
+                                if(DigAllCells[y-1][x-1] != undefined){suspect.push(DigAllCells[y-1][x-1]);}else{suspect.push(0);} //5
+                                suspect.push(DigAllCells[y-1][x])  ; //6
+                            }
+                            else{suspect.push(0, 0, 0);}
+                            if(DigAllCells[y][x+1] != undefined){suspect.push(DigAllCells[y][x+1]);}else{suspect.push(0);} //7
+                            if(DigAllCells[y][x-1] != undefined){suspect.push(DigAllCells[y][x-1]);}else{suspect.push(0);} //8
+                            suspects.push(suspect);
+                            suspect = [];
                         }
                     }
-                    suspect.forEach((sus)=>{
+                }
+                function EasyFlag(){
+                    suspects.forEach((suspect)=>{
                         let easy_flags = [];
                         let y_easy = 0;
-                        if (DigAllCells[y+1] != undefined){
-                            if(DigAllCells[y+1][x+1].classList.contains('untaken')){easy_flags.push(DigAllCells[y+1][x+1]); y_easy++}
-                            if(DigAllCells[y+1][x-1].classList.contains('untaken')){easy_flags.push(DigAllCells[y+1][x-1]); y_easy++}
-                            if(DigAllCells[y+1][x].classList.contains('untaken')){easy_flags.push(DigAllCells[y+1][x]); y_easy++}
-                        }
-                        if (DigAllCells[y-1] != undefined){
-                            if(DigAllCells[y-1][x+1].classList.contains('untaken')){easy_flags.push(DigAllCells[y-1][x+1]); y_easy++}
-                            if(DigAllCells[y-1][x-1].classList.contains('untaken')){easy_flags.push(DigAllCells[y-1][x-1]); y_easy++}
-                            if(DigAllCells[y-1][x].classList.contains('untaken')){easy_flags.push(DigAllCells[y-1][x]); y_easy++}
-                        }
-                        if(DigAllCells[y][x+1].classList.contains('untaken')){easy_flags.push(DigAllCells[y][x+1]); y_easy++}
-                        if(DigAllCells[y][x-1].classList.contains('untaken')){easy_flags.push(DigAllCells[y][x-1]); y_easy++} 
+
+                        if(suspect[1] != 0 && (suspect[1].classList.contains('untaken') || suspect[1].classList.contains('flag'))){easy_flags.push(suspect[1]); y_easy++}
+                        if(suspect[2] != 0 && (suspect[2].classList.contains('untaken') || suspect[2].classList.contains('flag'))){easy_flags.push(suspect[2]); y_easy++}
+                        if(suspect[3] != 0 && (suspect[3].classList.contains('untaken') || suspect[3].classList.contains('flag'))){easy_flags.push(suspect[3]); y_easy++}
+                        if(suspect[4] != 0 && (suspect[4].classList.contains('untaken') || suspect[4].classList.contains('flag'))){easy_flags.push(suspect[4]); y_easy++}
+                        if(suspect[5] != 0 && (suspect[5].classList.contains('untaken') || suspect[5].classList.contains('flag'))){easy_flags.push(suspect[5]); y_easy++}
+                        if(suspect[6] != 0 && (suspect[6].classList.contains('untaken') || suspect[6].classList.contains('flag'))){easy_flags.push(suspect[6]); y_easy++}
+                        if(suspect[7] != 0 && (suspect[7].classList.contains('untaken') || suspect[7].classList.contains('flag'))){easy_flags.push(suspect[7]); y_easy++}
+                        if(suspect[8] != 0 && (suspect[8].classList.contains('untaken') || suspect[8].classList.contains('flag'))){easy_flags.push(suspect[8]); y_easy++} 
                         let st_y_easy = y_easy.toString();
-                        if(DigAllCells[y][x].innerHTML == st_y_easy){
+                        if(suspect[0].innerHTML == st_y_easy){
                             easy_flags.forEach((easy_flag)=>{
-                                easy_flag.classList.add('flag');
-                                easy_flag.classList.remove('untaken');
+                                if(easy_flag.classList.contains('untaken')){
+                                    easy_flag.classList.add('flag');
+                                    easy_flag.classList.remove('untaken');
+                                    bomb_counter.innerHTML = bomb_counter.innerHTML -1;
+                                    if(easy_flag.classList.contains('bomb') == true){
+                                        true_counter = true_counter -1;
+                                    }
+                                }
                             });
                         }
                     });
-                    let suspect = [];
+                    window.suspect = [];
+                    window.suspects = [];
                 }
                 
                 //Testing if north exist
@@ -168,6 +192,7 @@
                             E .classList.remove('untaken')
                             E .classList.contains('flag') == false && E .classList.contains('bomb') == true ? mistake++ : null;
                         }
+                        EasyFlag();
 
                         //Ending game if cell had bomb and no flag
                         if(mistake>0) {
@@ -187,6 +212,7 @@
                 //Removing class that hides cell
                 else {
                     Chain(y,x);
+                    EasyFlag();
                     i.classList.remove('untaken');     
                 }
             });
