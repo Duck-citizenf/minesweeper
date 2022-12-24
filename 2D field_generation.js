@@ -5,6 +5,7 @@ document.querySelector('.refresh').addEventListener('click', Create);
 
 function Easy(){
     document.getElementById("field").innerHTML = '';
+    document.getElementById("field").classList.remove('gameover');
     let bomb_count = 10;
     let height = 9;
     let width = 9;
@@ -13,6 +14,7 @@ function Easy(){
 }
 function Normal(){
     document.getElementById("field").innerHTML = '';
+    document.getElementById("field").classList.remove('gameover');
     let bomb_count = 40;
     let height = 16;
     let width = 16;
@@ -21,6 +23,7 @@ function Normal(){
 }
 function Hard(){
     document.getElementById("field").innerHTML = '';
+    document.getElementById("field").classList.remove('gameover');
     let bomb_count = 99;
     let height = 16;
     let width = 30;
