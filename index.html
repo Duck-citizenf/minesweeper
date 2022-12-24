@@ -1,10 +1,21 @@
 <link rel="stylesheet" type="text/css" href="css.css"/>
 <div class="menu">
     <span class="bomb_count"></span>
-    <button onClick="window.location.reload()">Refresh</button>
+    <button class="refresh">Refresh</button>
     <span class="timer">10:00</span>
 </div>
-<div id="field"></div>
+<div style="display: flex;">
+    <div>
+        <button id="easy">Easy</button>
+        <button id="normal">Normal</button>
+        <button id="hard">Hard</button>
+        <div>Width <input/></div>
+        <div>Height <input/></div>
+        <div>Bombs <input/></div>
+        <button>Create</button>
+    </div>
+    <div id="field"></div>
+</div>
 <div id="victory" class="not">
     <span>You won!</span>
     <button onClick="window.location.reload()">Try Again</button>

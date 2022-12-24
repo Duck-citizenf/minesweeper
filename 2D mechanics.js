@@ -1,15 +1,15 @@
-(function() {
+function Clicks(bomb_count, width) {
     const allbombs = document.querySelectorAll(".bomb");
     const allcells = document.querySelectorAll("#cell");
     //Converting NodeList of Listeners to Array
     const allcells2 = Array.from(allcells);
     //Converting Array to 
     const DigAllCells = [];
-    while(allcells2.length) DigAllCells.push(allcells2.splice(0,30));
+    while(allcells2.length) DigAllCells.push(allcells2.splice(0,width));
     //Setting bomb counter
     let bomb_counter = document.querySelector('.bomb_count');
-    bomb_counter.innerHTML = window.bomb_count;
-    let true_counter = window.bomb_count;
+    bomb_counter.innerHTML = bomb_count;
+    let true_counter = bomb_count;
 
     DigAllCells.forEach((m) => m.forEach((i) =>{
             //blocking left click in browser
@@ -246,4 +246,4 @@
             });
         }
     ));
-}());
+}

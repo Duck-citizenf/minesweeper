@@ -1,9 +1,10 @@
 #field{
-    width:660px;
-    display:flex;
-    flex-wrap: wrap;
-    margin: 0px auto;
+    width: 100%;
     font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+#field > div{
+    display: flex;
+    justify-content: center;
 }
 .unit{
     width:20px;
