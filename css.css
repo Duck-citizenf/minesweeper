@@ -1,5 +1,4 @@
 #field{
-    width: 100%;
     font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 }
 #field > div{
@@ -58,4 +57,7 @@
 }
 .not{
     display: none;
+}
+input{
+    width:40px;
 }

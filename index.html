@@ -1,11 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css.css"/>
-<div class="menu">
-    <span class="bomb_count"></span>
-    <button class="refresh">Refresh</button>
-    <span class="timer">10:00</span>
-</div>
 <div style="display: flex;">
-    <div>
+    <div style="width: 165px;">
         <button id="easy">Easy</button>
         <button id="normal">Normal</button>
         <button id="hard">Hard</button>
@@ -14,7 +9,14 @@
         <div>Bombs <input/></div>
         <button>Create</button>
     </div>
-    <div id="field"></div>
+    <div style="width: 100%;">
+        <div class="menu">
+            <span class="bomb_count"></span>
+            <button class="refresh">Refresh</button>
+            <span class="timer">10:00</span>
+        </div>
+        <div id="field"></div>
+    </div>
 </div>
 <div id="victory" class="not">
     <span>You won!</span>

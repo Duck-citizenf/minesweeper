@@ -1,34 +1,44 @@
 document.getElementById('easy').addEventListener('click', Easy);
 document.getElementById('normal').addEventListener('click', Normal);
 document.getElementById('hard').addEventListener('click', Hard);
-document.querySelector('.refresh').addEventListener('click', Create);
+document.querySelector('.refresh').addEventListener('click', Cachee);
 
 function Easy(){
-    document.getElementById("field").innerHTML = '';
-    document.getElementById("field").classList.remove('gameover');
-    let bomb_count = 10;
-    let height = 9;
-    let width = 9;
-    Create(bomb_count, height, width);
-    Clicks(bomb_count, width);
+    let ram = 'easy';
+    Cachee(ram);
 }
 function Normal(){
-    document.getElementById("field").innerHTML = '';
-    document.getElementById("field").classList.remove('gameover');
-    let bomb_count = 40;
-    let height = 16;
-    let width = 16;
-    Create(bomb_count, height, width);
-    Clicks(bomb_count, width);
+    let ram = 'normal';
+    Cachee(ram);
 }
 function Hard(){
+    let ram = 'hard';
+    Cachee(ram);
+}
+function Cachee(ram){
     document.getElementById("field").innerHTML = '';
     document.getElementById("field").classList.remove('gameover');
-    let bomb_count = 99;
-    let height = 16;
-    let width = 30;
-    Create(bomb_count, height, width);
-    Clicks(bomb_count, width);
+    if(ram == 'hard'){
+        let bomb_count = 99;
+        let height = 16;
+        let width = 30;
+        Create(bomb_count, height, width);
+        Clicks(bomb_count, width);
+    }
+    else if(ram == 'normal'){
+        let bomb_count = 40;
+        let height = 16;
+        let width = 16;
+        Create(bomb_count, height, width);
+        Clicks(bomb_count, width);
+    }
+    else if(ram == 'easy'){
+        let bomb_count = 10;
+        let height = 9;
+        let width = 9;
+        Create(bomb_count, height, width);
+        Clicks(bomb_count, width);
+    }
 }
 function Create(bomb_count, height, width) {
     // 1D array creation
