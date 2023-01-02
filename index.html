@@ -1,13 +1,16 @@
 <link rel="stylesheet" type="text/css" href="css.css"/>
 <div style="display: flex;">
     <div style="width: 165px;">
-        <button id="easy">Easy</button>
-        <button id="normal">Normal</button>
-        <button id="hard">Hard</button>
-        <div>Width <input/></div>
-        <div>Height <input/></div>
-        <div>Bombs <input/></div>
-        <button>Create</button>
+        <div>
+            <div><input type="radio" name="difficulty" id="easy"/>Easy</div>
+            <div><input type="radio" name="difficulty" id="normal"/>Normal</div>
+            <div><input type="radio" name="difficulty" id="hard"/>Hard</div>
+            <div><input type="radio" name="difficulty" id="custom"/>Custom</div>
+        </div>
+        <div>Width <input  type="number" min="1" max="89" id="width"/></div>
+        <div>Height <input type="number" min="1" max="89" id="height"/></div>
+        <div>Bombs <input  type="number" id="bombs"/></div>
+        <button id="create_custom">Create</button>
     </div>
     <div style="width: 100%;">
         <div class="menu">
